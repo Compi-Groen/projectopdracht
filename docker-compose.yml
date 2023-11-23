@@ -1,0 +1,38 @@
+version: "3"
+services:
+
+  api:
+    build:
+      context: ./backend
+    environment:
+      STORAGE: mysql
+      MYSQL_HOST: db
+      MYSQL_USER: mainUser
+      MYSQL_PWD: DitIsGoed!
+      MYSQL_DB: examen
+
+
+  frontend:
+    image: nginx:1.22
+    volumes:
+      - "./frontend:/var/www/static:ro"
+      - "./frontend/nginx.conf:/etc/nginx/nginx.conf:ro"
+    ports:
+      - "80:80"
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: DitIsGoed!
+      MYSQL_DATABASE: examen
+      MYSQL_USER: mainUser
+      MYSQL_PASSWORD: DitIsGoed!
+    volumes:
+      - "db-volume:/var/lib/mysql"
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql:ro"
+
+volumes:
+  db-volume:
+
+
+
