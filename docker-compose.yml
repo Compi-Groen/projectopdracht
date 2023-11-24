@@ -7,9 +7,9 @@ services:
     environment:
       STORAGE: mysql
       MYSQL_HOST: db
-      MYSQL_USER: mainUser
-      MYSQL_PWD: DitIsGoed!
-      MYSQL_DB: examen
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PWD: "${MYSQL_PWD}"
+      MYSQL_DB: "${MYSQL_DB}"
 
 
   frontend:
@@ -23,10 +23,10 @@ services:
   db:
     image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: DitIsGoed!
-      MYSQL_DATABASE: examen
-      MYSQL_USER: mainUser
-      MYSQL_PASSWORD: DitIsGoed!
+      MYSQL_ROOT_PASSWORD: "${MYSQL_PWD}"
+      MYSQL_DATABASE: "${MYSQL_DB}"
+      MYSQL_USER: 
+      MYSQL_PASSWORD: "${MYSQL_PWD}"
     volumes:
       - "db-volume:/var/lib/mysql"
       - "./init.sql:/docker-entrypoint-initdb.d/init.sql:ro"
